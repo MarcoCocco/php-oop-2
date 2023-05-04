@@ -7,6 +7,16 @@ Immaginare quali sono le classi necessarie per creare uno shop online con le seg
 
 Stampiamo delle card contenenti i dettagli dei prodotti, come immagine, titolo, prezzo, icona della categoria ed il tipo di articolo che si sta visualizzando (prodotto, cibo, gioco, cuccia).
  -->
+<?php
+
+require_once './Models/Product.php';
+require_once './Models/ExpirationDate.php';
+require_once './Models/FoodProduct.php';
+require_once './Models/ToyProduct.php';
+require_once './DB/dbFoodProduct.php';
+require_once './DB/dbToyProduct.php';
+
+?>
 <!DOCTYPE html>
 <html lang="it">
 
@@ -21,8 +31,40 @@ Stampiamo delle card contenenti i dettagli dei prodotti, come immagine, titolo, 
 </head>
 
 <body>
-    <div class="container">
-
+    <div class="container p-4">
+        <div class="row">
+            <?php foreach ($foodProducts as $foodProduct) { ?>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="<?php echo $foodProduct->image ?>" class="card-img-top object-fit-contain" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $foodProduct->name ?></h5>
+                            <p class="card-text"><?php echo $foodProduct->description ?></p>
+                            <p class="card-text"><strong>Categoria</strong>: <i class="<?php echo $foodProduct->categoryIcon ?>"></i></p>
+                            <p class="card-text"><strong>Tipo di Prodotto</strong>: <?php echo $foodProduct->cardProductType ?></p>
+                            <p class="card-text"><strong>Data di Scadenza</strong>: <?php echo $foodProduct->expirationDate->getFullExpirationDate() ?></p>
+                            <h6 class="card-subtitle mb-2 text-muted"><strong>Prezzo</strong>: <?php echo $foodProduct->price ?>€</h6>
+                            <a href="#" class="btn btn-primary">Acquista</a>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+            <?php foreach ($toyProducts as $toyProduct) { ?>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="<?php echo $toyProduct->image ?>" class="card-img-top object-fit-contain" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $toyProduct->name ?></h5>
+                            <p class="card-text"><?php echo $toyProduct->description ?></p>
+                            <p class="card-text"><strong>Categoria</strong>: <i class="<?php echo $toyProduct->categoryIcon ?>"></i></p>
+                            <p class="card-text"><strong>Tipo di Prodotto</strong>: <?php echo $toyProduct->cardProductType ?></p>
+                            <h6 class="card-subtitle mb-2 text-muted"><strong>Prezzo</strong>: <?php echo $toyProduct->price ?>€</h6>
+                            <a href="#" class="btn btn-primary">Acquista</a>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
