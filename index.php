@@ -8,7 +8,7 @@ Immaginare quali sono le classi necessarie per creare uno shop online con le seg
 Stampiamo delle card contenenti i dettagli dei prodotti, come immagine, titolo, prezzo, icona della categoria ed il tipo di articolo che si sta visualizzando (prodotto, cibo, gioco, cuccia).
  -->
 <?php
-
+require_once './Trait/Reviewable.php';
 require_once './Models/Product.php';
 require_once './Models/ExpirationDate.php';
 require_once './Models/FoodProduct.php';
@@ -46,6 +46,13 @@ require_once './DB/dbToyProduct.php';
                             <p class="card-text"><strong>Tipo di Prodotto</strong>: <?php echo $foodProduct->cardProductType ?></p>
                             <p class="card-text"><strong>Peso</strong>: <?php echo $foodProduct->weight ?>g</p>
                             <p class="card-text"><strong>Data di Scadenza</strong>: <?php echo $foodProduct->expirationDate->getFullExpirationDate() ?></p>
+                            <?php echo "<p><strong>Recensioni del prodotto:</strong></p>";
+                            echo "<ul>";
+                            $reviews = $foodProduct->getReviews();
+                            foreach ($reviews as $review) {
+                                echo "<li>" . $review . "</li>";
+                            }
+                            echo "</ul>"; ?>
                             <h6 class="card-subtitle mb-2 text-muted"><strong>Prezzo</strong>: <?php echo $foodProduct->price ?>€</h6>
                             <a href="#" class="btn btn-primary">Acquista</a>
                         </div>
@@ -63,13 +70,19 @@ require_once './DB/dbToyProduct.php';
                             <p class="card-text"><?php echo $toyProduct->description ?></p>
                             <p class="card-text"><strong>Categoria</strong>: <i class="<?php echo $toyProduct->categoryIcon ?>"></i></p>
                             <p class="card-text"><strong>Tipo di Prodotto</strong>: <?php echo $toyProduct->cardProductType ?></p>
+                            <?php echo "<p><strong>Recensioni del prodotto:</strong></p>";
+                            echo "<ul>";
+                            $reviews = $toyProduct->getReviews();
+                            foreach ($reviews as $review) {
+                                echo "<li>" . $review . "</li>";
+                            }
+                            echo "</ul>"; ?>
                             <h6 class="card-subtitle mb-2 text-muted"><strong>Prezzo</strong>: <?php echo $toyProduct->price ?>€</h6>
                             <a href="#" class="btn btn-primary">Acquista</a>
                         </div>
                     </div>
                 </div>
             <?php } ?>
-
         </div>
 
     </div>

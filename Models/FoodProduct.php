@@ -4,6 +4,8 @@ require_once './Models/ExpirationDate.php';
 //Creo una classe cibo più specifica che estende la classe Prodotto
 class FoodProduct extends Product
 {
+    use Reviewable;
+    
     public $expirationDate;
     public $weight;
 
